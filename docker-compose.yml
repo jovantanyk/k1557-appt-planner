@@ -3,10 +3,11 @@ services:
     build: .
     restart: unless-stopped
     ports:
-      - "12348:5000"
+      - "127.0.0.1:12348:5000"
     volumes:
-      - planner_data:/app/data
-      - planner_uploads:/app/app/static/uploads
+      - ./data:/app/data
+      - ./uploads:/app/app/static/uploads
+      - ./logs:/app/logs
     env_file:
       - .env
     environment:

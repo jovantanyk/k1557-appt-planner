@@ -1,6 +1,6 @@
 """Constants and configuration values for the Kingdom Appointment Planner."""
 
-DEFAULT_SLOT_COUNT: int = 49
+DEFAULT_SLOT_COUNT: int = 48
 
 SCORING_MULTIPLIERS: dict[str, dict[str, int]] = {
     "construction": {
