@@ -18,6 +18,3 @@ services:
     dns:
       - 8.8.8.8
       - 1.1.1.1
-volumes:
-  planner_data:
-  planner_uploads:
