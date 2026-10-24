@@ -142,7 +142,7 @@
                         </label>
                         <input type="text" name="player_id" id="player_id" required 
                                pattern="\d*" inputmode="numeric" placeholder="e.g. 12345678"
-                               class="block w-full bg-kvk-gray-700 border-kvk-gray-700 rounded-md shadow-sm text-gray-200 focus:border-kvk-gold focus:ring focus:ring-kvk-gold focus:ring-opacity-50">
+                               class="block w-full px-1 bg-kvk-gray-700 border-kvk-gray-700 rounded-md shadow-sm text-gray-200 focus:border-kvk-gold focus:ring focus:ring-kvk-gold focus:ring-opacity-50">
                     </div>
                     <div class="md:col-span-5 flex items-center gap-3">
                         <div id="avatar-container" class="w-12 h-12 rounded-full bg-kvk-gray-900 border border-kvk-gray-700 overflow-hidden flex-shrink-0 flex items-center justify-center">
@@ -151,13 +151,13 @@
                         </div>
                         <div class="flex-grow">
                             <label for="player_name" class="block text-sm font-medium text-gray-300 mb-1">Player Name</label>
-                            <input type="text" name="player_name" id="player_name" required placeholder="e.g. KingArthur"
-                                   class="block w-full bg-kvk-gray-700 border-kvk-gray-700 rounded-md shadow-sm text-gray-200 focus:border-kvk-gold focus:ring focus:ring-kvk-gold focus:ring-opacity-50">
+                            <input type="text" name="player_name" id="player_name" required placeholder="e.g. Kaely"
+                                   class="block w-full px-1 bg-kvk-gray-700 border-kvk-gray-700 rounded-md shadow-sm text-gray-200 focus:border-kvk-gold focus:ring focus:ring-kvk-gold focus:ring-opacity-50">
                         </div>
                     </div>
                     <div class="md:col-span-3">
                         <label for="alliance_name" class="block text-sm font-medium text-gray-300 mb-1">Alliance</label>
-                        <input type="text" name="alliance_name" id="alliance_name" placeholder="e.g. KVK" class="block w-full bg-kvk-gray-700 border-kvk-gray-700 rounded-md shadow-sm text-gray-200 focus:border-kvk-gold focus:ring focus:ring-kvk-gold focus:ring-opacity-50">
+                        <input type="text" name="alliance_name" id="alliance_name" placeholder="e.g. GOT, PND, JOE" class="block w-full px-1 bg-kvk-gray-700 border-kvk-gray-700 rounded-md shadow-sm text-gray-200 focus:border-kvk-gold focus:ring focus:ring-kvk-gold focus:ring-opacity-50">
                     </div>
                 </div>
                 <input type="hidden" name="avatar_url" id="avatar_url_input">
@@ -226,26 +226,26 @@
                                 <div id="input-group-construction" class="grid grid-cols-3 gap-2">
                                     <div class="hidden" id="days-container-construction">
                                         <label class="block text-[10px] uppercase text-gray-500 mb-1">Days</label>
-                                        <input type="number" id="days-construction" min="0" placeholder="0" class="dynamic-input w-full bg-kvk-gray-700 border-kvk-gray-700 rounded-md text-gray-200 text-sm">
+                                        <input type="number" id="days-construction" min="0" placeholder="0" class="dynamic-input w-full px-1 bg-kvk-gray-700 border-kvk-gray-700 rounded-md text-gray-200 text-sm">
                                     </div>
                                     <div class="hidden" id="hours-container-construction">
                                         <label class="block text-[10px] uppercase text-gray-500 mb-1">Hours</label>
-                                        <input type="number" id="hours-construction" min="0" max="23" placeholder="0" class="dynamic-input w-full bg-kvk-gray-700 border-kvk-gray-700 rounded-md text-gray-200 text-sm">
+                                        <input type="number" id="hours-construction" min="0" max="23" placeholder="0" class="dynamic-input w-full px-1 bg-kvk-gray-700 border-kvk-gray-700 rounded-md text-gray-200 text-sm">
                                     </div>
                                     <div id="minutes-container-construction">
                                         <label class="block text-[10px] uppercase text-gray-500 mb-1">Minutes</label>
-                                        <input type="number" id="mins-construction" min="0" placeholder="0" class="dynamic-input w-full bg-kvk-gray-700 border-kvk-gray-700 rounded-md text-gray-200 text-sm">
+                                        <input type="number" id="mins-construction" min="0" placeholder="0" class="dynamic-input w-full px-1 bg-kvk-gray-700 border-kvk-gray-700 rounded-md text-gray-200 text-sm">
                                     </div>
                                 </div>
                                 <input type="hidden" name="speedups-construction" id="speedups-construction" value="0">
                             </div>
                             <div>
                                 <label for="truegold" class="block text-sm font-medium text-gray-300">TrueGold</label>
-                                <input type="number" name="truegold" id="truegold" min="0" class="mt-1 block w-full bg-kvk-gray-700 border-kvk-gray-700 rounded-md text-gray-200">
+                                <input type="number" name="truegold" id="truegold" min="0" class="mt-1 block w-full bg-kvk-gray-700 px-1 border-kvk-gray-700 rounded-md text-gray-200">
                             </div>
                             <div>
                                 <label for="tempered_truegold" class="block text-sm font-medium text-gray-300">Tempered TrueGold</label>
-                                <input type="number" name="tempered_truegold" id="tempered_truegold" min="0" class="mt-1 block w-full bg-kvk-gray-700 border-kvk-gray-700 rounded-md text-gray-200">
+                                <input type="number" name="tempered_truegold" id="tempered_truegold" min="0" class="mt-1 block w-full px-1 bg-kvk-gray-700 border-kvk-gray-700 rounded-md text-gray-200">
                             </div>
                         </div>
                         <div id="slot-grid-construction" class="grid grid-cols-7 gap-1 mb-4" data-day="construction">
@@ -277,22 +277,22 @@
                                 <div id="input-group-research" class="grid grid-cols-3 gap-2">
                                     <div class="hidden" id="days-container-research">
                                         <label class="block text-[10px] uppercase text-gray-500 mb-1">Days</label>
-                                        <input type="number" id="days-research" min="0" placeholder="0" class="dynamic-input w-full bg-kvk-gray-700 border-kvk-gray-700 rounded-md text-gray-200 text-sm">
+                                        <input type="number" id="days-research" min="0" placeholder="0" class="dynamic-input w-full px-1 bg-kvk-gray-700 border-kvk-gray-700 rounded-md text-gray-200 text-sm">
                                     </div>
                                     <div class="hidden" id="hours-container-research">
                                         <label class="block text-[10px] uppercase text-gray-500 mb-1">Hours</label>
-                                        <input type="number" id="hours-research" min="0" max="23" placeholder="0" class="dynamic-input w-full bg-kvk-gray-700 border-kvk-gray-700 rounded-md text-gray-200 text-sm">
+                                        <input type="number" id="hours-research" min="0" max="23" placeholder="0" class="dynamic-input w-full px-1 bg-kvk-gray-700 border-kvk-gray-700 rounded-md text-gray-200 text-sm">
                                     </div>
                                     <div id="minutes-container-research">
                                         <label class="block text-[10px] uppercase text-gray-500 mb-1">Minutes</label>
-                                        <input type="number" id="mins-research" min="0" placeholder="0" class="dynamic-input w-full bg-kvk-gray-700 border-kvk-gray-700 rounded-md text-gray-200 text-sm">
+                                        <input type="number" id="mins-research" min="0" placeholder="0" class="dynamic-input w-full px-1 bg-kvk-gray-700 border-kvk-gray-700 rounded-md text-gray-200 text-sm">
                                     </div>
                                 </div>
                                 <input type="hidden" name="speedups-research" id="speedups-research" value="0">
                             </div>
                             <div>
                                 <label for="truegold_dust" class="block text-sm font-medium text-gray-300">TrueGold Dust</label>
-                                <input type="number" name="truegold_dust" id="truegold_dust" min="0" class="mt-1 block w-full bg-kvk-gray-700 border-kvk-gray-700 rounded-md text-gray-200">
+                                <input type="number" name="truegold_dust" id="truegold_dust" min="0" class="mt-1 block w-full px-1 bg-kvk-gray-700 border-kvk-gray-700 rounded-md text-gray-200">
                             </div>
                         </div>
                         <div id="slot-grid-research" class="grid grid-cols-7 gap-1 mb-4" data-day="research">
@@ -323,7 +323,7 @@
                             <div id="input-group-training" class="grid grid-cols-3 gap-2">
                                 <div class="hidden" id="days-container-training">
                                     <label class="block text-[10px] uppercase text-gray-500 mb-1">Days</label>
-                                    <input type="number" id="days-training" min="0" placeholder="0" class="dynamic-input w-full bg-kvk-gray-700 border-kvk-gray-700 rounded-md text-gray-200 text-sm">
+                                    <input type="number" id="days-training" min="0" placeholder="0" class="dynamic-input w-full px-1 bg-kvk-gray-700 border-kvk-gray-700 rounded-md text-gray-200 text-sm">
                                 </div>
                                 <div class="hidden" id="hours-container-training">
                                     <label class="block text-[10px] uppercase text-gray-500 mb-1">Hours</label>
@@ -331,7 +331,7 @@
                                 </div>
                                 <div id="minutes-container-training">
                                     <label class="block text-[10px] uppercase text-gray-500 mb-1">Minutes</label>
-                                    <input type="number" id="mins-training" min="0" placeholder="0" class="dynamic-input w-full bg-kvk-gray-700 border-kvk-gray-700 rounded-md text-gray-200 text-sm">
+                                    <input type="number" id="mins-training" min="0" placeholder="0" class="dynamic-input w-full px-1 bg-kvk-gray-700 border-kvk-gray-700 rounded-md text-gray-200 text-sm">
                                 </div>
                             </div>
                             <input type="hidden" name="speedups-training" id="speedups-training" value="0">
