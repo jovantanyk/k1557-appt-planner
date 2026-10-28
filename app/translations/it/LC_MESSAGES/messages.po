@@ -1,0 +1,171 @@
+# Italian translations for the player submission form.
+# First draft - have a native-speaking player review game terms.
+# TrueGold item names are kept in English; replace them with the in-game names if they differ.
+msgid ""
+msgstr ""
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#, python-format
+msgid "Submit for %(name)s"
+msgstr "Iscrizione: %(name)s"
+
+msgid "Submission Form"
+msgstr "Modulo di iscrizione"
+
+#, python-format
+msgid "Kingdom #%(id)s"
+msgstr "Regno n. %(id)s"
+
+msgid "Language"
+msgstr "Lingua"
+
+msgid "Your Information"
+msgstr "Le tue informazioni"
+
+msgid "Player ID (Numeric)"
+msgstr "ID giocatore (numerico)"
+
+#, python-format
+msgid "e.g. %(example)s"
+msgstr "es. %(example)s"
+
+msgid "Avatar"
+msgstr "Avatar"
+
+msgid "Player Name"
+msgstr "Nome del giocatore"
+
+msgid "Alliance"
+msgstr "Alleanza"
+
+msgid "Backpack Screenshot (Optional)"
+msgstr "Screenshot dello zaino (facoltativo)"
+
+msgid "Upload a screenshot of your backpack to help verify your resources."
+msgstr "Carica uno screenshot del tuo zaino per aiutarci a verificare le tue risorse."
+
+msgid "Timezone Display:"
+msgstr "Fuso orario:"
+
+msgid "Local Time"
+msgstr "Ora locale"
+
+msgid "Local"
+msgstr "Locale"
+
+#, python-format
+msgid "0 to %(max)s applicants (great chance of assignment)"
+msgstr "Da 0 a %(max)s candidati (ottime probabilità di assegnazione)"
+
+#, python-format
+msgid "%(min)s to %(max)s applicants (moderate competition)"
+msgstr "Da %(min)s a %(max)s candidati (concorrenza moderata)"
+
+#, python-format
+msgid "%(min)s+ applicants (peak competition)"
+msgstr "%(min)s+ candidati (concorrenza massima)"
+
+#, python-format
+msgid "Low (0-%(max)s)"
+msgstr "Bassa (0-%(max)s)"
+
+#, python-format
+msgid "Moderate (%(min)s-%(max)s)"
+msgstr "Moderata (%(min)s-%(max)s)"
+
+#, python-format
+msgid "High (%(min)s+)"
+msgstr "Alta (%(min)s+)"
+
+msgid "Low"
+msgstr "Bassa"
+
+msgid "Moderate"
+msgstr "Moderata"
+
+msgid "High"
+msgstr "Alta"
+
+#, python-format
+msgid "Applicants: %(count)s"
+msgstr "Candidati: %(count)s"
+
+#, python-format
+msgid "Demand: %(level)s"
+msgstr "Domanda: %(level)s"
+
+#, python-format
+msgid "Day %(num)s: Construction"
+msgstr "Giorno %(num)s: Costruzione"
+
+#, python-format
+msgid "Day %(num)s: Research"
+msgstr "Giorno %(num)s: Ricerca"
+
+#, python-format
+msgid "Day %(num)s: Troop Training"
+msgstr "Giorno %(num)s: Addestramento truppe"
+
+msgid "Enter resources and select <strong>all feasible</strong> time slots. More slots give the system more flexibility to match you."
+msgstr "Inserisci le tue risorse e seleziona <strong>tutte le fasce orarie possibili</strong>. Più fasce selezioni, più flessibilità avrà il sistema per assegnarti."
+
+msgid "Speedups"
+msgstr "Acceleratori"
+
+msgid "Days"
+msgstr "Giorni"
+
+msgid "Hours"
+msgstr "Ore"
+
+msgid "Minutes"
+msgstr "Minuti"
+
+msgid "TrueGold"
+msgstr "TrueGold"
+
+msgid "Tempered TrueGold"
+msgstr "Tempered TrueGold"
+
+msgid "TrueGold Dust"
+msgstr "TrueGold Dust"
+
+msgid "Submit All Entries"
+msgstr "Invia tutte le iscrizioni"
+
+msgid "Fetching..."
+msgstr "Ricerca in corso..."
+
+msgid "Found!"
+msgstr "Trovato!"
+
+msgid "Not found (manual entry enabled)"
+msgstr "Non trovato (inserimento manuale abilitato)"
+
+msgid "Lookup unavailable (manual entry enabled)"
+msgstr "Ricerca non disponibile (inserimento manuale abilitato)"
+
+msgid "Player ID must be numeric."
+msgstr "L'ID giocatore deve essere numerico."
+
+msgid "Please enter a valid Player Name."
+msgstr "Inserisci un nome giocatore valido."
+
+msgid "Please enter resource data for at least one event day."
+msgstr "Inserisci le risorse per almeno un giorno dell'evento."
+
+#, python-format
+msgid "You must select at least one time slot for: %(days)s"
+msgstr "Devi selezionare almeno una fascia oraria per: %(days)s"
+
+msgid "Construction"
+msgstr "Costruzione"
+
+msgid "Training"
+msgstr "Addestramento"
+
+msgid "Research"
+msgstr "Ricerca"

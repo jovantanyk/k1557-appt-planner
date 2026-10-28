@@ -1,0 +1,171 @@
+# Korean translations for the player submission form.
+# First draft - have a native-speaking player review game terms.
+# TrueGold item names are kept in English; replace them with the in-game names if they differ.
+msgid ""
+msgstr ""
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#, python-format
+msgid "Submit for %(name)s"
+msgstr "신청: %(name)s"
+
+msgid "Submission Form"
+msgstr "신청서"
+
+#, python-format
+msgid "Kingdom #%(id)s"
+msgstr "왕국 #%(id)s"
+
+msgid "Language"
+msgstr "언어"
+
+msgid "Your Information"
+msgstr "내 정보"
+
+msgid "Player ID (Numeric)"
+msgstr "플레이어 ID (숫자)"
+
+#, python-format
+msgid "e.g. %(example)s"
+msgstr "예: %(example)s"
+
+msgid "Avatar"
+msgstr "아바타"
+
+msgid "Player Name"
+msgstr "플레이어 이름"
+
+msgid "Alliance"
+msgstr "연맹"
+
+msgid "Backpack Screenshot (Optional)"
+msgstr "가방 스크린샷 (선택)"
+
+msgid "Upload a screenshot of your backpack to help verify your resources."
+msgstr "자원 확인을 위해 가방 스크린샷을 업로드하세요."
+
+msgid "Timezone Display:"
+msgstr "시간대 표시:"
+
+msgid "Local Time"
+msgstr "현지 시간"
+
+msgid "Local"
+msgstr "현지"
+
+#, python-format
+msgid "0 to %(max)s applicants (great chance of assignment)"
+msgstr "신청자 0~%(max)s명 (배정 가능성 높음)"
+
+#, python-format
+msgid "%(min)s to %(max)s applicants (moderate competition)"
+msgstr "신청자 %(min)s~%(max)s명 (경쟁 보통)"
+
+#, python-format
+msgid "%(min)s+ applicants (peak competition)"
+msgstr "신청자 %(min)s명 이상 (경쟁 치열)"
+
+#, python-format
+msgid "Low (0-%(max)s)"
+msgstr "낮음 (0-%(max)s)"
+
+#, python-format
+msgid "Moderate (%(min)s-%(max)s)"
+msgstr "보통 (%(min)s-%(max)s)"
+
+#, python-format
+msgid "High (%(min)s+)"
+msgstr "높음 (%(min)s+)"
+
+msgid "Low"
+msgstr "낮음"
+
+msgid "Moderate"
+msgstr "보통"
+
+msgid "High"
+msgstr "높음"
+
+#, python-format
+msgid "Applicants: %(count)s"
+msgstr "신청자: %(count)s"
+
+#, python-format
+msgid "Demand: %(level)s"
+msgstr "수요: %(level)s"
+
+#, python-format
+msgid "Day %(num)s: Construction"
+msgstr "%(num)s일차: 건설"
+
+#, python-format
+msgid "Day %(num)s: Research"
+msgstr "%(num)s일차: 연구"
+
+#, python-format
+msgid "Day %(num)s: Troop Training"
+msgstr "%(num)s일차: 병력 훈련"
+
+msgid "Enter resources and select <strong>all feasible</strong> time slots. More slots give the system more flexibility to match you."
+msgstr "자원을 입력하고 <strong>가능한 모든</strong> 시간대를 선택하세요. 더 많은 시간대를 선택할수록 시스템이 더 유연하게 배정할 수 있습니다."
+
+msgid "Speedups"
+msgstr "가속"
+
+msgid "Days"
+msgstr "일"
+
+msgid "Hours"
+msgstr "시간"
+
+msgid "Minutes"
+msgstr "분"
+
+msgid "TrueGold"
+msgstr "TrueGold"
+
+msgid "Tempered TrueGold"
+msgstr "Tempered TrueGold"
+
+msgid "TrueGold Dust"
+msgstr "TrueGold Dust"
+
+msgid "Submit All Entries"
+msgstr "모두 제출"
+
+msgid "Fetching..."
+msgstr "조회 중..."
+
+msgid "Found!"
+msgstr "찾았습니다!"
+
+msgid "Not found (manual entry enabled)"
+msgstr "찾을 수 없음 (직접 입력 가능)"
+
+msgid "Lookup unavailable (manual entry enabled)"
+msgstr "조회 불가 (직접 입력 가능)"
+
+msgid "Player ID must be numeric."
+msgstr "플레이어 ID는 숫자여야 합니다."
+
+msgid "Please enter a valid Player Name."
+msgstr "올바른 플레이어 이름을 입력하세요."
+
+msgid "Please enter resource data for at least one event day."
+msgstr "최소 하나의 이벤트 날짜에 자원을 입력하세요."
+
+#, python-format
+msgid "You must select at least one time slot for: %(days)s"
+msgstr "다음 날짜에 최소 하나의 시간대를 선택해야 합니다: %(days)s"
+
+msgid "Construction"
+msgstr "건설"
+
+msgid "Training"
+msgstr "훈련"
+
+msgid "Research"
+msgstr "연구"

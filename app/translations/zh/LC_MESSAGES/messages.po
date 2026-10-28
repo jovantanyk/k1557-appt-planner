@@ -1,0 +1,171 @@
+# Chinese (Simplified) translations for the player submission form.
+# First draft - have a native-speaking player review game terms.
+# TrueGold item names are kept in English; replace them with the in-game names if they differ.
+msgid ""
+msgstr ""
+"Language: zh\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#, python-format
+msgid "Submit for %(name)s"
+msgstr "提交 - %(name)s"
+
+msgid "Submission Form"
+msgstr "报名表"
+
+#, python-format
+msgid "Kingdom #%(id)s"
+msgstr "王国 #%(id)s"
+
+msgid "Language"
+msgstr "语言"
+
+msgid "Your Information"
+msgstr "你的信息"
+
+msgid "Player ID (Numeric)"
+msgstr "玩家 ID（数字）"
+
+#, python-format
+msgid "e.g. %(example)s"
+msgstr "例如：%(example)s"
+
+msgid "Avatar"
+msgstr "头像"
+
+msgid "Player Name"
+msgstr "玩家名称"
+
+msgid "Alliance"
+msgstr "联盟"
+
+msgid "Backpack Screenshot (Optional)"
+msgstr "背包截图（可选）"
+
+msgid "Upload a screenshot of your backpack to help verify your resources."
+msgstr "上传背包截图，帮助核实你的资源。"
+
+msgid "Timezone Display:"
+msgstr "时区显示："
+
+msgid "Local Time"
+msgstr "本地时间"
+
+msgid "Local"
+msgstr "本地"
+
+#, python-format
+msgid "0 to %(max)s applicants (great chance of assignment)"
+msgstr "0 至 %(max)s 名申请者（分配机会很大）"
+
+#, python-format
+msgid "%(min)s to %(max)s applicants (moderate competition)"
+msgstr "%(min)s 至 %(max)s 名申请者（竞争适中）"
+
+#, python-format
+msgid "%(min)s+ applicants (peak competition)"
+msgstr "%(min)s 名及以上申请者（竞争激烈）"
+
+#, python-format
+msgid "Low (0-%(max)s)"
+msgstr "低（0-%(max)s）"
+
+#, python-format
+msgid "Moderate (%(min)s-%(max)s)"
+msgstr "中（%(min)s-%(max)s）"
+
+#, python-format
+msgid "High (%(min)s+)"
+msgstr "高（%(min)s+）"
+
+msgid "Low"
+msgstr "低"
+
+msgid "Moderate"
+msgstr "中"
+
+msgid "High"
+msgstr "高"
+
+#, python-format
+msgid "Applicants: %(count)s"
+msgstr "申请人数：%(count)s"
+
+#, python-format
+msgid "Demand: %(level)s"
+msgstr "需求：%(level)s"
+
+#, python-format
+msgid "Day %(num)s: Construction"
+msgstr "第 %(num)s 天：建造"
+
+#, python-format
+msgid "Day %(num)s: Research"
+msgstr "第 %(num)s 天：研究"
+
+#, python-format
+msgid "Day %(num)s: Troop Training"
+msgstr "第 %(num)s 天：训练士兵"
+
+msgid "Enter resources and select <strong>all feasible</strong> time slots. More slots give the system more flexibility to match you."
+msgstr "填写资源并选择<strong>所有可行</strong>的时间段。选择的时间段越多，系统就越容易为你安排。"
+
+msgid "Speedups"
+msgstr "加速"
+
+msgid "Days"
+msgstr "天"
+
+msgid "Hours"
+msgstr "小时"
+
+msgid "Minutes"
+msgstr "分钟"
+
+msgid "TrueGold"
+msgstr "真金"
+
+msgid "Tempered TrueGold"
+msgstr "Tempered 真金"
+
+msgid "TrueGold Dust"
+msgstr "真金 Dust"
+
+msgid "Submit All Entries"
+msgstr "全部提交"
+
+msgid "Fetching..."
+msgstr "查询中..."
+
+msgid "Found!"
+msgstr "已找到！"
+
+msgid "Not found (manual entry enabled)"
+msgstr "未找到（可手动填写）"
+
+msgid "Lookup unavailable (manual entry enabled)"
+msgstr "查询不可用（可手动填写）"
+
+msgid "Player ID must be numeric."
+msgstr "玩家 ID 必须是数字。"
+
+msgid "Please enter a valid Player Name."
+msgstr "请输入有效的玩家名称。"
+
+msgid "Please enter resource data for at least one event day."
+msgstr "请至少为一个活动日填写资源数据。"
+
+#, python-format
+msgid "You must select at least one time slot for: %(days)s"
+msgstr "请为以下活动日至少选择一个时间段：%(days)s"
+
+msgid "Construction"
+msgstr "建造"
+
+msgid "Training"
+msgstr "训练"
+
+msgid "Research"
+msgstr "研究"
