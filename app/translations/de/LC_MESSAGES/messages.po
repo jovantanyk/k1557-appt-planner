@@ -162,7 +162,7 @@ msgid "You must select at least one time slot for: %(days)s"
 msgstr "Du musst mindestens ein Zeitfenster auswählen für: %(days)s"
 
 msgid "Construction"
-msgstr "Bau"
+msgstr "Stadtentwicklung"
 
 msgid "Training"
 msgstr "Ausbildung"
