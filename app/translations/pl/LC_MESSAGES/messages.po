@@ -26,7 +26,7 @@ msgid "Your Information"
 msgstr "Twoje dane"
 
 msgid "Player ID (Numeric)"
-msgstr "ID gracza (liczbowe)"
+msgstr "ID gracza (liczba z profilu)"
 
 #, python-format
 msgid "e.g. %(example)s"

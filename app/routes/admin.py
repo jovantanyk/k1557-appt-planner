@@ -334,6 +334,60 @@ def export_csv(event_uid, day_type):
             "Content-Disposition": f"attachment; filename=schedule_{event['uid']}_{day_type}.csv"
         },
     )
+def _format_schedule_text(rows, slot_labels):
+    """Group assignments by alliance; each line is 'HH:MM Name PlayerID', sorted by slot."""
+    groups = {}
+    for r in rows:
+        alliance = (r["alliance_name"] or "").strip() or "No Alliance"
+        groups.setdefault(alliance, []).append(r)
+
+    # Alliances appear in order of their earliest slot; players without an alliance go last
+    def first_slot(item):
+        name, members = item
+        return (name == "No Alliance", min(m["slot_index"] for m in members))
+
+    blocks = []
+    for alliance, members in sorted(groups.items(), key=first_slot):
+        lines = [alliance]
+        for m in sorted(members, key=lambda m: m["slot_index"]):
+            idx = m["slot_index"]
+            label = slot_labels[idx] if idx is not None and 0 <= idx < len(slot_labels) else ""
+            start_time = label.split("-")[0]  # "00:00-\u200b00:30" -> "00:00"
+            lines.append(f"{start_time} {m['player_name']} {m['player_id']}")
+        blocks.append("\n".join(lines))
+    return "\n\n".join(blocks) + "\n"
+
+
+@admin_bp.route("/<event_uid>/export-text/<day_type>", methods=["GET"])
+@require_admin
+def export_text(event_uid, day_type):
+    db = database.get_db()
+    event = g.event
+
+    # Same rows as export_csv, plus the alliance name
+    assignments = db.execute(
+        """
+        SELECT a.player_id, s.player_name, s.alliance_name, a.slot_index
+        FROM assignments a
+        JOIN submissions s ON a.event_uid = s.event_uid AND a.day_type = s.day_type AND a.player_id = s.player_id
+        WHERE a.event_uid = ? AND a.day_type = ? AND a.is_locked = 1
+        ORDER BY a.slot_index ASC
+        """,
+        (event_uid, day_type),
+    ).fetchall()
+
+    slot_count = event["slot_count"] if event["slot_count"] is not None else 49
+    slot_labels = generate_slot_labels(slot_count)
+
+    text = _format_schedule_text(assignments, slot_labels)
+
+    return Response(
+        text,
+        mimetype="text/plain; charset=utf-8",
+        headers={
+            "Content-Disposition": f"attachment; filename=schedule_{event['uid']}_{day_type}.txt"
+        },
+    )
 
 
 @admin_bp.route("/<event_uid>/export_submissions", methods=["GET"])
