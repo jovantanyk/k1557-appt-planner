@@ -154,6 +154,7 @@ def player_form(event_uid):
     active_days_config = json.loads(event["active_days"])
     active_days = get_ordered_active_days(active_days_config)
     day_numbers = get_day_numbers(event["active_days"])
+
     # Create a dictionary from the database row
     event_dict = {
         "uid": event["uid"],

@@ -116,6 +116,8 @@
     </style>
 </head>
 <body class="bg-kvk-gray-900 text-gray-200 antialiased">
+    {% set low_max = 5 %}
+    {% set medium_max = 10 %}
     <div class="container mx-auto p-4 md:p-8 max-w-7xl">
         <header class="text-center mb-10">
             <h1 class="text-4xl md:text-5xl font-bold text-kvk-gold">Submission Form</h1>
@@ -196,16 +198,15 @@
 
                 <!-- Slot Demand Guidance Legend -->
                 <div class="flex items-center gap-3 text-xs text-gray-400 bg-kvk-gray-900/80 px-3 py-1.5 rounded-lg border border-kvk-gray-700">
-                    <span class="font-semibold text-gray-300">Slot Demand:</span>
-                    <span class="inline-flex items-center gap-1.5" title="0 to 10 applicants (great chance of assignment)">
-                        <span class="w-2 h-2 rounded-full bg-green-400 shadow-[0_0_4px_rgba(74,222,128,0.8)]"></span> Low (0-10)
-                    </span>
-                    <span class="inline-flex items-center gap-1.5" title="11 to 20 applicants (moderate competition)">
-                        <span class="w-2 h-2 rounded-full bg-yellow-400 shadow-[0_0_4px_rgba(250,204,21,0.8)]"></span> Moderate (11-20)
-                    </span>
-                    <span class="inline-flex items-center gap-1.5" title="21+ applicants (peak competition)">
-                        <span class="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_4px_rgba(239,68,68,0.8)]"></span> High (21+)
-                    </span>
+                <span class="inline-flex items-center gap-1.5" title="0 to {{ low_max }} applicants (great chance of assignment)">
+                    <span class="w-2 h-2 rounded-full bg-green-400 shadow-[0_0_4px_rgba(74,222,128,0.8)]"></span> Low (0-{{ low_max }})
+                </span>
+                <span class="inline-flex items-center gap-1.5" title="{{ low_max + 1 }} to {{ medium_max }} applicants (moderate competition)">
+                    <span class="w-2 h-2 rounded-full bg-yellow-400 shadow-[0_0_4px_rgba(250,204,21,0.8)]"></span> Moderate ({{ low_max + 1 }}-{{ medium_max }})
+                </span>
+                <span class="inline-flex items-center gap-1.5" title="{{ medium_max + 1 }}+ applicants (peak competition)">
+                    <span class="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_4px_rgba(239,68,68,0.8)]"></span> High ({{ medium_max + 1 }}+)
+                </span>
                 </div>
             </div>
 
@@ -213,7 +214,7 @@
                 {% for day in active_days %}
                     {% if day == 'construction' %}
                     <div class="p-4 rounded-lg bg-kvk-gray-900 border border-kvk-gray-700">
-                        <h3 class="font-bold text-xl mb-2 text-amber-400"><h3 class="font-bold text-xl mb-2 text-amber-400">Day {{ day_numbers.construction }}: Construction</h3></h3>
+                        <h3 class="font-bold text-xl mb-2 text-amber-400">Day {{ day_numbers.construction }}: Construction</h3>
                         <p class="text-xs text-gray-400 mb-4 italic">Enter resources and select <strong>all feasible</strong> time slots. More slots give the system more flexibility to match you.</p>
                         <div class="space-y-4 mb-4">
                             <div>
@@ -251,7 +252,7 @@
                         <div id="slot-grid-construction" class="grid grid-cols-7 gap-1 mb-4" data-day="construction">
                             {% for i in range(slot_labels|length) %}
                                 {% set count = slot_density.get('construction', [])[i] if slot_density and 'construction' in slot_density and i < slot_density['construction']|length else 0 %}
-                                {% set contention = 'low' if count <= 10 else ('medium' if count <= 20 else 'high') %}
+                                {% set contention = 'low' if count <= low_max else ('medium' if count <= medium_max else 'high') %}
                                 <div class="slot slot-traffic-{{ contention }}" data-index="{{ i }}" data-count="{{ count }}" data-contention="{{ contention }}" data-utc-label="{{ slot_labels[i] }}" title="{{ slot_labels[i] }} UTC ({{ count }} applicant{% if count != 1 %}s{% endif %} - {{ contention|capitalize }} demand)">
                                     <div class="slot-content">
                                         <span class="slot-time-text">{{ slot_labels[i] }}</span>
@@ -298,7 +299,7 @@
                         <div id="slot-grid-research" class="grid grid-cols-7 gap-1 mb-4" data-day="research">
                             {% for i in range(slot_labels|length) %}
                                 {% set count = slot_density.get('research', [])[i] if slot_density and 'research' in slot_density and i < slot_density['research']|length else 0 %}
-                                {% set contention = 'low' if count <= 10 else ('medium' if count <= 20 else 'high') %}
+                                {% set contention = 'low' if count <= low_max else ('medium' if count <= medium_max else 'high') %}
                                 <div class="slot slot-traffic-{{ contention }}" data-index="{{ i }}" data-count="{{ count }}" data-contention="{{ contention }}" data-utc-label="{{ slot_labels[i] }}" title="{{ slot_labels[i] }} UTC ({{ count }} applicant{% if count != 1 %}s{% endif %} - {{ contention|capitalize }} demand)">
                                     <div class="slot-content">
                                         <span class="slot-time-text">{{ slot_labels[i] }}</span>
@@ -339,7 +340,7 @@
                         <div id="slot-grid-training" class="grid grid-cols-7 gap-1 mb-4" data-day="training">
                             {% for i in range(slot_labels|length) %}
                                 {% set count = slot_density.get('training', [])[i] if slot_density and 'training' in slot_density and i < slot_density['training']|length else 0 %}
-                                {% set contention = 'low' if count <= 10 else ('medium' if count <= 20 else 'high') %}
+                                {% set contention = 'low' if count <= low_max else ('medium' if count <= medium_max else 'high') %}
                                 <div class="slot slot-traffic-{{ contention }}" data-index="{{ i }}" data-count="{{ count }}" data-contention="{{ contention }}" data-utc-label="{{ slot_labels[i] }}" title="{{ slot_labels[i] }} UTC ({{ count }} applicant{% if count != 1 %}s{% endif %} - {{ contention|capitalize }} demand)">
                                     <div class="slot-content">
                                         <span class="slot-time-text">{{ slot_labels[i] }}</span>
