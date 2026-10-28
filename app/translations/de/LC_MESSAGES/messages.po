@@ -110,7 +110,7 @@ msgid "Day %(num)s: Troop Training"
 msgstr "Tag %(num)s: Truppenausbildung"
 
 msgid "Enter resources and select <strong>all feasible</strong> time slots. More slots give the system more flexibility to match you."
-msgstr "Gib deine Ressourcen ein und wähle <strong>alle möglichen</strong> Zeitfenster aus. Je mehr Zeitfenster du wählst, desto flexibler kann das System dich einteilen."
+msgstr "Gib deine verfügbaren Ressourcen an und wähle alle Zeitfenster aus, <strong>die für dich infrage kommen</strong>. Je mehr Zeitfenster du auswählst, desto flexibler kann das System dich einplanen."
 
 msgid "Speedups"
 msgstr "Beschleunigungen"
