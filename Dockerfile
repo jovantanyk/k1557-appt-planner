@@ -5,6 +5,7 @@ RUN useradd -m -u 1000 -U -s /bin/bash appuser
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
+RUN pybabel compile -d app/translations
 RUN mkdir -p /app/data /app/logs /app/app/static/uploads && \
     chown -R appuser:appuser /app /home/appuser && \
     chmod +x /app/scripts/entrypoint.sh

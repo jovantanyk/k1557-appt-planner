@@ -186,6 +186,32 @@ def run_distribution_algorithm(event_uid: str, day_type: str | None = None) -> N
 
     db.commit()
 
+def get_day_numbers(active_days_config: dict[str, Any] | list[str] | str) -> dict[str, int]:
+    """
+    Returns the in-game day number for each buff day.
+    Construction is Day 1 unless Research takes Day 1, in which case Construction moves to Day 2.
+    """
+    if isinstance(active_days_config, str):
+        try:
+            active_days_config = json.loads(active_days_config)
+        except (json.JSONDecodeError, TypeError):
+            active_days_config = {}
+
+    if not isinstance(active_days_config, dict):
+        active_days_config = {}
+
+    try:
+        research_day_num = int(active_days_config.get("research_day", 5) or 5)
+    except (ValueError, TypeError):
+        research_day_num = 5
+
+    construction_day_num = 2 if research_day_num == 1 else 1
+
+    return {
+        "construction": construction_day_num,
+        "training": 4,
+        "research": research_day_num,
+    }
 
 def get_ordered_active_days(
     active_days_config: dict[str, Any] | list[str] | str,
@@ -209,16 +235,7 @@ def get_ordered_active_days(
     if not isinstance(active_days_config, dict):
         return []
 
-    try:
-        research_day_num = int(active_days_config.get("research_day", 5) or 5)
-    except (ValueError, TypeError):
-        research_day_num = 5
-
-    day_numbers = {
-        "construction": 1,
-        "training": 4,
-        "research": research_day_num,
-    }
+    day_numbers = get_day_numbers(active_days_config)
 
     active = [
         day

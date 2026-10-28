@@ -8,6 +8,7 @@ from logging.handlers import RotatingFileHandler
 
 from flask import Flask, request
 from flask_wtf.csrf import CSRFProtect
+from flask_babel import Babel, get_locale
 
 from config import Config
 
@@ -20,13 +21,38 @@ from .services import fetch_player_info
 # Ensure .js files are served with the correct MIME type
 mimetypes.add_type("application/javascript", ".js")
 
+SUPPORTED_LANGUAGES = [
+    ("en", "English"),
+    ("zh", "简体中文"),
+    ("zh_Hant", "繁體中文"),
+    ("fr", "Français"),
+    ("pt", "Português"),
+    ("pl", "Polski"),
+    ("es", "Español"),
+    ("de", "Deutsch"),
+    ("it", "Italiano"),
+    ("ko", "한국어"),
+]
+LANGUAGE_CODES = [code for code, _ in SUPPORTED_LANGUAGES]
 
+babel = Babel()
+
+
+def select_locale():
+    """Use the language the visitor picked; otherwise match their browser; otherwise English."""
+    lang = request.cookies.get("lang")
+    if lang in LANGUAGE_CODES:
+        return lang
+    return request.accept_languages.best_match(LANGUAGE_CODES) or "en"
+
+    
 def create_app() -> Flask:
     """Create and configure the Flask application."""
     app = Flask(__name__)
     app.config.from_object(Config)
     CSRFProtect(app)
     database.init_app(app)
+    babel.init_app(app, locale_selector=select_locale) 
 
     # Setup Audit Logging
     log_dir = os.path.join(app.root_path, "..", "logs")
@@ -74,6 +100,8 @@ def create_app() -> Flask:
             "slot_labels": generate_slot_labels(slot_count),
             "enable_screenshot_upload": Config.ENABLE_SCREENSHOT_UPLOAD,
             "ga_measurement_id": Config.GA_MEASUREMENT_ID,
+            "current_locale": str(get_locale()),
+            "supported_languages": SUPPORTED_LANGUAGES,
         }
 
     @app.after_request

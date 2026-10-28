@@ -1,0 +1,171 @@
+# French translations for the player submission form.
+# First draft - have a native-speaking player review game terms.
+# TrueGold item names are kept in English; replace them with the in-game names if they differ.
+msgid ""
+msgstr ""
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#, python-format
+msgid "Submit for %(name)s"
+msgstr "Inscription : %(name)s"
+
+msgid "Submission Form"
+msgstr "Formulaire d'inscription"
+
+#, python-format
+msgid "Kingdom #%(id)s"
+msgstr "Royaume n°%(id)s"
+
+msgid "Language"
+msgstr "Langue"
+
+msgid "Your Information"
+msgstr "Vos informations"
+
+msgid "Player ID (Numeric)"
+msgstr "ID du joueur (numérique)"
+
+#, python-format
+msgid "e.g. %(example)s"
+msgstr "ex. %(example)s"
+
+msgid "Avatar"
+msgstr "Avatar"
+
+msgid "Player Name"
+msgstr "Nom du joueur"
+
+msgid "Alliance"
+msgstr "Alliance"
+
+msgid "Backpack Screenshot (Optional)"
+msgstr "Capture d'écran du sac (facultatif)"
+
+msgid "Upload a screenshot of your backpack to help verify your resources."
+msgstr "Téléversez une capture d'écran de votre sac pour aider à vérifier vos ressources."
+
+msgid "Timezone Display:"
+msgstr "Affichage du fuseau horaire :"
+
+msgid "Local Time"
+msgstr "Heure locale"
+
+msgid "Local"
+msgstr "Local"
+
+#, python-format
+msgid "0 to %(max)s applicants (great chance of assignment)"
+msgstr "0 à %(max)s candidats (bonnes chances d'attribution)"
+
+#, python-format
+msgid "%(min)s to %(max)s applicants (moderate competition)"
+msgstr "%(min)s à %(max)s candidats (concurrence modérée)"
+
+#, python-format
+msgid "%(min)s+ applicants (peak competition)"
+msgstr "%(min)s candidats ou plus (forte concurrence)"
+
+#, python-format
+msgid "Low (0-%(max)s)"
+msgstr "Faible (0-%(max)s)"
+
+#, python-format
+msgid "Moderate (%(min)s-%(max)s)"
+msgstr "Modérée (%(min)s-%(max)s)"
+
+#, python-format
+msgid "High (%(min)s+)"
+msgstr "Élevée (%(min)s+)"
+
+msgid "Low"
+msgstr "Faible"
+
+msgid "Moderate"
+msgstr "Modérée"
+
+msgid "High"
+msgstr "Élevée"
+
+#, python-format
+msgid "Applicants: %(count)s"
+msgstr "Candidats : %(count)s"
+
+#, python-format
+msgid "Demand: %(level)s"
+msgstr "Demande : %(level)s"
+
+#, python-format
+msgid "Day %(num)s: Construction"
+msgstr "Jour %(num)s : Construction"
+
+#, python-format
+msgid "Day %(num)s: Research"
+msgstr "Jour %(num)s : Recherche"
+
+#, python-format
+msgid "Day %(num)s: Troop Training"
+msgstr "Jour %(num)s : Entraînement des troupes"
+
+msgid "Enter resources and select <strong>all feasible</strong> time slots. More slots give the system more flexibility to match you."
+msgstr "Indiquez vos ressources et sélectionnez <strong>tous les créneaux possibles</strong>. Plus vous en sélectionnez, plus le système a de flexibilité pour vous attribuer un créneau."
+
+msgid "Speedups"
+msgstr "Accélérations"
+
+msgid "Days"
+msgstr "Jours"
+
+msgid "Hours"
+msgstr "Heures"
+
+msgid "Minutes"
+msgstr "Minutes"
+
+msgid "TrueGold"
+msgstr "TrueGold"
+
+msgid "Tempered TrueGold"
+msgstr "Tempered TrueGold"
+
+msgid "TrueGold Dust"
+msgstr "TrueGold Dust"
+
+msgid "Submit All Entries"
+msgstr "Envoyer toutes les inscriptions"
+
+msgid "Fetching..."
+msgstr "Recherche..."
+
+msgid "Found!"
+msgstr "Trouvé !"
+
+msgid "Not found (manual entry enabled)"
+msgstr "Introuvable (saisie manuelle activée)"
+
+msgid "Lookup unavailable (manual entry enabled)"
+msgstr "Recherche indisponible (saisie manuelle activée)"
+
+msgid "Player ID must be numeric."
+msgstr "L'ID du joueur doit être numérique."
+
+msgid "Please enter a valid Player Name."
+msgstr "Veuillez saisir un nom de joueur valide."
+
+msgid "Please enter resource data for at least one event day."
+msgstr "Veuillez indiquer des ressources pour au moins un jour de l'événement."
+
+#, python-format
+msgid "You must select at least one time slot for: %(days)s"
+msgstr "Vous devez sélectionner au moins un créneau pour : %(days)s"
+
+msgid "Construction"
+msgstr "Construction"
+
+msgid "Training"
+msgstr "Entraînement"
+
+msgid "Research"
+msgstr "Recherche"

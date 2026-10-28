@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="{{ current_locale }}" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Submit for {{ event.name }}</title>
+    <title>{{ _('Submit for %(name)s', name=event.name) }}</title>
     {% include 'analytics.html' %}
     <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
     <script src="{{ url_for('static', filename='tailwind.js') }}"></script>
@@ -116,14 +116,29 @@
     </style>
 </head>
 <body class="bg-kvk-gray-900 text-gray-200 antialiased">
+    {% set low_max = 5 %}
+    {% set medium_max = 10 %}
+    {% set demand_names = {'low': _('Low'), 'medium': _('Moderate'), 'high': _('High')} %}
+    {% set day_hint = _('Enter resources and select <strong>all feasible</strong> time slots. More slots give the system more flexibility to match you.') %}
+
     <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+        <!-- Language Switcher -->
+        <div class="flex justify-end mb-4">
+            <label for="lang-select" class="sr-only">{{ _('Language') }}</label>
+            <select id="lang-select" class="bg-kvk-gray-800 border border-kvk-gray-700 text-gray-200 text-sm rounded-md px-2 py-1 focus:border-kvk-gold focus:ring-kvk-gold">
+                {% for code, label in supported_languages %}
+                    <option value="{{ code }}" {% if code == current_locale %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
         <header class="text-center mb-10">
-            <h1 class="text-4xl md:text-5xl font-bold text-kvk-gold">Submission Form</h1>
+            <h1 class="text-4xl md:text-5xl font-bold text-kvk-gold">{{ _('Submission Form') }}</h1>
             <p class="text-lg text-gray-400 mt-2 flex items-center justify-center gap-2">
                 <span>{{ event.name }}</span>
                 {% if event.server_id %}
                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-kvk-gray-800 text-kvk-gold border border-kvk-gold/40">
-                        Kingdom #{{ event.server_id }}
+                        {{ _('Kingdom #%(id)s', id=event.server_id) }}
                     </span>
                 {% endif %}
             </p>
@@ -133,38 +148,38 @@
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             
             <div class="p-4 border-b border-kvk-gray-700">
-                <h2 class="text-2xl font-bold text-gray-100 mb-4">Your Information</h2>
+                <h2 class="text-2xl font-bold text-gray-100 mb-4">{{ _('Your Information') }}</h2>
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-end">
                     <div class="md:col-span-4">
                         <label for="player_id" class="block text-sm font-medium text-gray-300 mb-1">
-                            Player ID (Numeric)
+                            {{ _('Player ID (Numeric)') }}
                             <span id="fetch-status" class="ml-2 text-xs font-normal"></span>
                         </label>
                         <input type="text" name="player_id" id="player_id" required 
-                               pattern="\d*" inputmode="numeric" placeholder="e.g. 12345678"
+                               pattern="\d*" inputmode="numeric" placeholder="{{ _('e.g. %(example)s', example='12345678') }}"
                                class="block w-full px-1 bg-kvk-gray-700 border-kvk-gray-700 rounded-md shadow-sm text-gray-200 focus:border-kvk-gold focus:ring focus:ring-kvk-gold focus:ring-opacity-50">
                     </div>
                     <div class="md:col-span-5 flex items-center gap-3">
                         <div id="avatar-container" class="w-12 h-12 rounded-full bg-kvk-gray-900 border border-kvk-gray-700 overflow-hidden flex-shrink-0 flex items-center justify-center">
-                            <img id="player-avatar" src="" alt="Avatar" class="w-full h-full object-cover hidden">
+                            <img id="player-avatar" src="" alt="{{ _('Avatar') }}" class="w-full h-full object-cover hidden">
                             <span id="avatar-placeholder" class="text-gray-500 text-xs font-semibold">?</span>
                         </div>
                         <div class="flex-grow">
-                            <label for="player_name" class="block text-sm font-medium text-gray-300 mb-1">Player Name</label>
-                            <input type="text" name="player_name" id="player_name" required placeholder="e.g. Kaely"
+                            <label for="player_name" class="block text-sm font-medium text-gray-300 mb-1">{{ _('Player Name') }}</label>
+                            <input type="text" name="player_name" id="player_name" required placeholder="{{ _('e.g. %(example)s', example='Kaely') }}"
                                    class="block w-full px-1 bg-kvk-gray-700 border-kvk-gray-700 rounded-md shadow-sm text-gray-200 focus:border-kvk-gold focus:ring focus:ring-kvk-gold focus:ring-opacity-50">
                         </div>
                     </div>
                     <div class="md:col-span-3">
-                        <label for="alliance_name" class="block text-sm font-medium text-gray-300 mb-1">Alliance</label>
-                        <input type="text" name="alliance_name" id="alliance_name" placeholder="e.g. GOT, PND, JOE" class="block w-full px-1 bg-kvk-gray-700 border-kvk-gray-700 rounded-md shadow-sm text-gray-200 focus:border-kvk-gold focus:ring focus:ring-kvk-gold focus:ring-opacity-50">
+                        <label for="alliance_name" class="block text-sm font-medium text-gray-300 mb-1">{{ _('Alliance') }}</label>
+                        <input type="text" name="alliance_name" id="alliance_name" placeholder="{{ _('e.g. %(example)s', example='GOT, PND, JOE') }}" class="block w-full px-1 bg-kvk-gray-700 border-kvk-gray-700 rounded-md shadow-sm text-gray-200 focus:border-kvk-gold focus:ring focus:ring-kvk-gold focus:ring-opacity-50">
                     </div>
                 </div>
                 <input type="hidden" name="avatar_url" id="avatar_url_input">
                 
                 {% if enable_screenshot_upload %}
                 <div class="mt-6 border-t border-kvk-gray-700 pt-6">
-                    <label for="backpack_screenshot" class="block text-sm font-medium text-gray-300 mb-2">Backpack Screenshot (Optional)</label>
+                    <label for="backpack_screenshot" class="block text-sm font-medium text-gray-300 mb-2">{{ _('Backpack Screenshot (Optional)') }}</label>
                     <div class="flex items-center gap-4">
                         <input type="file" name="backpack_screenshot" id="backpack_screenshot" accept="image/*" class="block w-full text-sm text-gray-400
                             file:mr-4 file:py-2 file:px-4
@@ -172,7 +187,7 @@
                             file:text-sm file:font-semibold
                             file:bg-kvk-gray-700 file:text-kvk-gold
                             hover:file:bg-kvk-gray-600 transition">
-                        <p class="text-xs text-gray-500 italic">Upload a screenshot of your backpack to help verify your resources.</p>
+                        <p class="text-xs text-gray-500 italic">{{ _('Upload a screenshot of your backpack to help verify your resources.') }}</p>
                     </div>
                 </div>
                 {% endif %}
@@ -181,7 +196,7 @@
             <!-- Time Display & Slot Contention Guidance Bar -->
             <div class="p-4 border-b border-kvk-gray-700 bg-kvk-gray-800/80 flex flex-wrap items-center justify-between gap-4" data-tz-container>
                 <div class="flex items-center gap-3">
-                    <span class="text-xs font-semibold text-gray-300 uppercase tracking-wider">Timezone Display:</span>
+                    <span class="text-xs font-semibold text-gray-300 uppercase tracking-wider">{{ _('Timezone Display:') }}</span>
                     <div class="inline-flex rounded-lg shadow-sm border border-kvk-gray-600 p-0.5 bg-kvk-gray-900" role="group" id="tz-toggle-group">
                         <button type="button" id="tz-toggle-utc" onclick="setTimezoneMode('utc')" 
                                 class="tz-toggle-btn px-3 py-1 text-xs font-bold rounded-md bg-kvk-gold text-kvk-gray-900 transition-all shadow-sm">
@@ -189,22 +204,21 @@
                         </button>
                         <button type="button" id="tz-toggle-local" onclick="setTimezoneMode('local')" 
                                 class="tz-toggle-btn px-3 py-1 text-xs font-medium rounded-md text-gray-300 hover:text-white transition-all">
-                            🕒 Local Time (<span id="detected-tz-name">Local</span>)
+                            🕒 {{ _('Local Time') }} (<span id="detected-tz-name">{{ _('Local') }}</span>)
                         </button>
                     </div>
                 </div>
 
                 <!-- Slot Demand Guidance Legend -->
                 <div class="flex items-center gap-3 text-xs text-gray-400 bg-kvk-gray-900/80 px-3 py-1.5 rounded-lg border border-kvk-gray-700">
-                    <span class="font-semibold text-gray-300">Slot Demand:</span>
-                    <span class="inline-flex items-center gap-1.5" title="0 to 10 applicants (great chance of assignment)">
-                        <span class="w-2 h-2 rounded-full bg-green-400 shadow-[0_0_4px_rgba(74,222,128,0.8)]"></span> Low (0-10)
+                    <span class="inline-flex items-center gap-1.5" title="{{ _('0 to %(max)s applicants (great chance of assignment)', max=low_max) }}">
+                        <span class="w-2 h-2 rounded-full bg-green-400 shadow-[0_0_4px_rgba(74,222,128,0.8)]"></span> {{ _('Low (0-%(max)s)', max=low_max) }}
                     </span>
-                    <span class="inline-flex items-center gap-1.5" title="11 to 20 applicants (moderate competition)">
-                        <span class="w-2 h-2 rounded-full bg-yellow-400 shadow-[0_0_4px_rgba(250,204,21,0.8)]"></span> Moderate (11-20)
+                    <span class="inline-flex items-center gap-1.5" title="{{ _('%(min)s to %(max)s applicants (moderate competition)', min=low_max + 1, max=medium_max) }}">
+                        <span class="w-2 h-2 rounded-full bg-yellow-400 shadow-[0_0_4px_rgba(250,204,21,0.8)]"></span> {{ _('Moderate (%(min)s-%(max)s)', min=low_max + 1, max=medium_max) }}
                     </span>
-                    <span class="inline-flex items-center gap-1.5" title="21+ applicants (peak competition)">
-                        <span class="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_4px_rgba(239,68,68,0.8)]"></span> High (21+)
+                    <span class="inline-flex items-center gap-1.5" title="{{ _('%(min)s+ applicants (peak competition)', min=medium_max + 1) }}">
+                        <span class="w-2 h-2 rounded-full bg-red-500 shadow-[0_0_4px_rgba(239,68,68,0.8)]"></span> {{ _('High (%(min)s+)', min=medium_max + 1) }}
                     </span>
                 </div>
             </div>
@@ -213,49 +227,50 @@
                 {% for day in active_days %}
                     {% if day == 'construction' %}
                     <div class="p-4 rounded-lg bg-kvk-gray-900 border border-kvk-gray-700">
-                        <h3 class="font-bold text-xl mb-2 text-amber-400">Day 1: Construction</h3>
-                        <p class="text-xs text-gray-400 mb-4 italic">Enter resources and select <strong>all feasible</strong> time slots. More slots give the system more flexibility to match you.</p>
+                        <h3 class="font-bold text-xl mb-2 text-amber-400">{{ _('Day %(num)s: Construction', num=day_numbers.construction) }}</h3>
+                        <p class="text-xs text-gray-400 mb-4 italic">{{ day_hint }}</p>
                         <div class="space-y-4 mb-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-300 mb-2">Speedups</label>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">{{ _('Speedups') }}</label>
                                 <div class="flex gap-2 mb-2">
-                                    <button type="button" data-unit="days" data-section="construction" class="unit-btn flex-1 py-1 px-2 text-xs rounded border border-kvk-gray-700 bg-kvk-gray-700 text-gray-400 hover:bg-kvk-gray-600 transition">Days</button>
-                                    <button type="button" data-unit="hours" data-section="construction" class="unit-btn flex-1 py-1 px-2 text-xs rounded border border-kvk-gray-700 bg-kvk-gray-700 text-gray-400 hover:bg-kvk-gray-600 transition">Hours</button>
-                                    <button type="button" data-unit="minutes" data-section="construction" class="unit-btn flex-1 py-1 px-2 text-xs rounded border border-kvk-gold bg-kvk-gold text-kvk-gray-900 font-bold transition">Minutes</button>
+                                    <button type="button" data-unit="days" data-section="construction" class="unit-btn flex-1 py-1 px-2 text-xs rounded border border-kvk-gray-700 bg-kvk-gray-700 text-gray-400 hover:bg-kvk-gray-600 transition">{{ _('Days') }}</button>
+                                    <button type="button" data-unit="hours" data-section="construction" class="unit-btn flex-1 py-1 px-2 text-xs rounded border border-kvk-gray-700 bg-kvk-gray-700 text-gray-400 hover:bg-kvk-gray-600 transition">{{ _('Hours') }}</button>
+                                    <button type="button" data-unit="minutes" data-section="construction" class="unit-btn flex-1 py-1 px-2 text-xs rounded border border-kvk-gold bg-kvk-gold text-kvk-gray-900 font-bold transition">{{ _('Minutes') }}</button>
                                 </div>
                                 <div id="input-group-construction" class="grid grid-cols-3 gap-2">
                                     <div class="hidden" id="days-container-construction">
-                                        <label class="block text-[10px] uppercase text-gray-500 mb-1">Days</label>
+                                        <label class="block text-[10px] uppercase text-gray-500 mb-1">{{ _('Days') }}</label>
                                         <input type="number" id="days-construction" min="0" placeholder="0" class="dynamic-input w-full px-1 bg-kvk-gray-700 border-kvk-gray-700 rounded-md text-gray-200 text-sm">
                                     </div>
                                     <div class="hidden" id="hours-container-construction">
-                                        <label class="block text-[10px] uppercase text-gray-500 mb-1">Hours</label>
+                                        <label class="block text-[10px] uppercase text-gray-500 mb-1">{{ _('Hours') }}</label>
                                         <input type="number" id="hours-construction" min="0" max="23" placeholder="0" class="dynamic-input w-full px-1 bg-kvk-gray-700 border-kvk-gray-700 rounded-md text-gray-200 text-sm">
                                     </div>
                                     <div id="minutes-container-construction">
-                                        <label class="block text-[10px] uppercase text-gray-500 mb-1">Minutes</label>
+                                        <label class="block text-[10px] uppercase text-gray-500 mb-1">{{ _('Minutes') }}</label>
                                         <input type="number" id="mins-construction" min="0" placeholder="0" class="dynamic-input w-full px-1 bg-kvk-gray-700 border-kvk-gray-700 rounded-md text-gray-200 text-sm">
                                     </div>
                                 </div>
                                 <input type="hidden" name="speedups-construction" id="speedups-construction" value="0">
                             </div>
                             <div>
-                                <label for="truegold" class="block text-sm font-medium text-gray-300">TrueGold</label>
+                                <label for="truegold" class="block text-sm font-medium text-gray-300">{{ _('TrueGold') }}</label>
                                 <input type="number" name="truegold" id="truegold" min="0" class="mt-1 block w-full bg-kvk-gray-700 px-1 border-kvk-gray-700 rounded-md text-gray-200">
                             </div>
                             <div>
-                                <label for="tempered_truegold" class="block text-sm font-medium text-gray-300">Tempered TrueGold</label>
+                                <label for="tempered_truegold" class="block text-sm font-medium text-gray-300">{{ _('Tempered TrueGold') }}</label>
                                 <input type="number" name="tempered_truegold" id="tempered_truegold" min="0" class="mt-1 block w-full px-1 bg-kvk-gray-700 border-kvk-gray-700 rounded-md text-gray-200">
                             </div>
                         </div>
                         <div id="slot-grid-construction" class="grid grid-cols-7 gap-1 mb-4" data-day="construction">
                             {% for i in range(slot_labels|length) %}
                                 {% set count = slot_density.get('construction', [])[i] if slot_density and 'construction' in slot_density and i < slot_density['construction']|length else 0 %}
-                                {% set contention = 'low' if count <= 10 else ('medium' if count <= 20 else 'high') %}
-                                <div class="slot slot-traffic-{{ contention }}" data-index="{{ i }}" data-count="{{ count }}" data-contention="{{ contention }}" data-utc-label="{{ slot_labels[i] }}" title="{{ slot_labels[i] }} UTC ({{ count }} applicant{% if count != 1 %}s{% endif %} - {{ contention|capitalize }} demand)">
+                                {% set contention = 'low' if count <= low_max else ('medium' if count <= medium_max else 'high') %}
+                                {% set demand_text = _('Applicants: %(count)s', count=count) ~ ' · ' ~ _('Demand: %(level)s', level=demand_names[contention]) %}
+                                <div class="slot slot-traffic-{{ contention }}" data-index="{{ i }}" data-count="{{ count }}" data-contention="{{ contention }}" data-utc-label="{{ slot_labels[i] }}" title="{{ slot_labels[i] }} UTC · {{ demand_text }}">
                                     <div class="slot-content">
                                         <span class="slot-time-text">{{ slot_labels[i] }}</span>
-                                        <span class="contention-indicator dot-{{ contention }}" title="{{ count }} applicant{% if count != 1 %}s{% endif %} ({{ contention|capitalize }})"></span>
+                                        <span class="contention-indicator dot-{{ contention }}" title="{{ demand_text }}"></span>
                                     </div>
                                 </div>
                             {% endfor %}
@@ -264,45 +279,46 @@
                     </div>
                     {% elif day == 'research' %}
                     <div class="p-4 rounded-lg bg-kvk-gray-900 border border-kvk-gray-700">
-                        <h3 class="font-bold text-xl mb-2 text-blue-500">Day {{ event.active_days.research_day if event.active_days.research_day else '5' }}: Research</h3>
-                        <p class="text-xs text-gray-400 mb-4 italic">Enter resources and select <strong>all feasible</strong> time slots. More slots give the system more flexibility to match you.</p>
+                        <h3 class="font-bold text-xl mb-2 text-blue-500">{{ _('Day %(num)s: Research', num=day_numbers.research) }}</h3>
+                        <p class="text-xs text-gray-400 mb-4 italic">{{ day_hint }}</p>
                          <div class="space-y-4 mb-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-300 mb-2">Speedups</label>
+                                <label class="block text-sm font-medium text-gray-300 mb-2">{{ _('Speedups') }}</label>
                                 <div class="flex gap-2 mb-2">
-                                    <button type="button" data-unit="days" data-section="research" class="unit-btn flex-1 py-1 px-2 text-xs rounded border border-kvk-gray-700 bg-kvk-gray-700 text-gray-400 hover:bg-kvk-gray-600 transition">Days</button>
-                                    <button type="button" data-unit="hours" data-section="research" class="unit-btn flex-1 py-1 px-2 text-xs rounded border border-kvk-gray-700 bg-kvk-gray-700 text-gray-400 hover:bg-kvk-gray-600 transition">Hours</button>
-                                    <button type="button" data-unit="minutes" data-section="research" class="unit-btn flex-1 py-1 px-2 text-xs rounded border border-kvk-gold bg-kvk-gold text-kvk-gray-900 font-bold transition">Minutes</button>
+                                    <button type="button" data-unit="days" data-section="research" class="unit-btn flex-1 py-1 px-2 text-xs rounded border border-kvk-gray-700 bg-kvk-gray-700 text-gray-400 hover:bg-kvk-gray-600 transition">{{ _('Days') }}</button>
+                                    <button type="button" data-unit="hours" data-section="research" class="unit-btn flex-1 py-1 px-2 text-xs rounded border border-kvk-gray-700 bg-kvk-gray-700 text-gray-400 hover:bg-kvk-gray-600 transition">{{ _('Hours') }}</button>
+                                    <button type="button" data-unit="minutes" data-section="research" class="unit-btn flex-1 py-1 px-2 text-xs rounded border border-kvk-gold bg-kvk-gold text-kvk-gray-900 font-bold transition">{{ _('Minutes') }}</button>
                                 </div>
                                 <div id="input-group-research" class="grid grid-cols-3 gap-2">
                                     <div class="hidden" id="days-container-research">
-                                        <label class="block text-[10px] uppercase text-gray-500 mb-1">Days</label>
+                                        <label class="block text-[10px] uppercase text-gray-500 mb-1">{{ _('Days') }}</label>
                                         <input type="number" id="days-research" min="0" placeholder="0" class="dynamic-input w-full px-1 bg-kvk-gray-700 border-kvk-gray-700 rounded-md text-gray-200 text-sm">
                                     </div>
                                     <div class="hidden" id="hours-container-research">
-                                        <label class="block text-[10px] uppercase text-gray-500 mb-1">Hours</label>
+                                        <label class="block text-[10px] uppercase text-gray-500 mb-1">{{ _('Hours') }}</label>
                                         <input type="number" id="hours-research" min="0" max="23" placeholder="0" class="dynamic-input w-full px-1 bg-kvk-gray-700 border-kvk-gray-700 rounded-md text-gray-200 text-sm">
                                     </div>
                                     <div id="minutes-container-research">
-                                        <label class="block text-[10px] uppercase text-gray-500 mb-1">Minutes</label>
+                                        <label class="block text-[10px] uppercase text-gray-500 mb-1">{{ _('Minutes') }}</label>
                                         <input type="number" id="mins-research" min="0" placeholder="0" class="dynamic-input w-full px-1 bg-kvk-gray-700 border-kvk-gray-700 rounded-md text-gray-200 text-sm">
                                     </div>
                                 </div>
                                 <input type="hidden" name="speedups-research" id="speedups-research" value="0">
                             </div>
                             <div>
-                                <label for="truegold_dust" class="block text-sm font-medium text-gray-300">TrueGold Dust</label>
+                                <label for="truegold_dust" class="block text-sm font-medium text-gray-300">{{ _('TrueGold Dust') }}</label>
                                 <input type="number" name="truegold_dust" id="truegold_dust" min="0" class="mt-1 block w-full px-1 bg-kvk-gray-700 border-kvk-gray-700 rounded-md text-gray-200">
                             </div>
                         </div>
                         <div id="slot-grid-research" class="grid grid-cols-7 gap-1 mb-4" data-day="research">
                             {% for i in range(slot_labels|length) %}
                                 {% set count = slot_density.get('research', [])[i] if slot_density and 'research' in slot_density and i < slot_density['research']|length else 0 %}
-                                {% set contention = 'low' if count <= 10 else ('medium' if count <= 20 else 'high') %}
-                                <div class="slot slot-traffic-{{ contention }}" data-index="{{ i }}" data-count="{{ count }}" data-contention="{{ contention }}" data-utc-label="{{ slot_labels[i] }}" title="{{ slot_labels[i] }} UTC ({{ count }} applicant{% if count != 1 %}s{% endif %} - {{ contention|capitalize }} demand)">
+                                {% set contention = 'low' if count <= low_max else ('medium' if count <= medium_max else 'high') %}
+                                {% set demand_text = _('Applicants: %(count)s', count=count) ~ ' · ' ~ _('Demand: %(level)s', level=demand_names[contention]) %}
+                                <div class="slot slot-traffic-{{ contention }}" data-index="{{ i }}" data-count="{{ count }}" data-contention="{{ contention }}" data-utc-label="{{ slot_labels[i] }}" title="{{ slot_labels[i] }} UTC · {{ demand_text }}">
                                     <div class="slot-content">
                                         <span class="slot-time-text">{{ slot_labels[i] }}</span>
-                                        <span class="contention-indicator dot-{{ contention }}" title="{{ count }} applicant{% if count != 1 %}s{% endif %} ({{ contention|capitalize }})"></span>
+                                        <span class="contention-indicator dot-{{ contention }}" title="{{ demand_text }}"></span>
                                     </div>
                                 </div>
                             {% endfor %}
@@ -311,26 +327,26 @@
                     </div>
                     {% elif day == 'training' %}
                     <div class="p-4 rounded-lg bg-kvk-gray-900 border border-kvk-gray-700">
-                        <h3 class="font-bold text-xl mb-2 text-red-500">Day 4: Troop Training</h3>
-                        <p class="text-xs text-gray-400 mb-4 italic">Enter resources and select <strong>all feasible</strong> time slots. More slots give the system more flexibility to match you.</p>
+                        <h3 class="font-bold text-xl mb-2 text-red-500">{{ _('Day %(num)s: Troop Training', num=day_numbers.training) }}</h3>
+                        <p class="text-xs text-gray-400 mb-4 italic">{{ day_hint }}</p>
                         <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-300 mb-2">Speedups</label>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">{{ _('Speedups') }}</label>
                             <div class="flex gap-2 mb-2">
-                                <button type="button" data-unit="days" data-section="training" class="unit-btn flex-1 py-1 px-2 text-xs rounded border border-kvk-gray-700 bg-kvk-gray-700 text-gray-400 hover:bg-kvk-gray-600 transition">Days</button>
-                                <button type="button" data-unit="hours" data-section="training" class="unit-btn flex-1 py-1 px-2 text-xs rounded border border-kvk-gray-700 bg-kvk-gray-700 text-gray-400 hover:bg-kvk-gray-600 transition">Hours</button>
-                                <button type="button" data-unit="minutes" data-section="training" class="unit-btn flex-1 py-1 px-2 text-xs rounded border border-kvk-gold bg-kvk-gold text-kvk-gray-900 font-bold transition">Minutes</button>
+                                <button type="button" data-unit="days" data-section="training" class="unit-btn flex-1 py-1 px-2 text-xs rounded border border-kvk-gray-700 bg-kvk-gray-700 text-gray-400 hover:bg-kvk-gray-600 transition">{{ _('Days') }}</button>
+                                <button type="button" data-unit="hours" data-section="training" class="unit-btn flex-1 py-1 px-2 text-xs rounded border border-kvk-gray-700 bg-kvk-gray-700 text-gray-400 hover:bg-kvk-gray-600 transition">{{ _('Hours') }}</button>
+                                <button type="button" data-unit="minutes" data-section="training" class="unit-btn flex-1 py-1 px-2 text-xs rounded border border-kvk-gold bg-kvk-gold text-kvk-gray-900 font-bold transition">{{ _('Minutes') }}</button>
                             </div>
                             <div id="input-group-training" class="grid grid-cols-3 gap-2">
                                 <div class="hidden" id="days-container-training">
-                                    <label class="block text-[10px] uppercase text-gray-500 mb-1">Days</label>
+                                    <label class="block text-[10px] uppercase text-gray-500 mb-1">{{ _('Days') }}</label>
                                     <input type="number" id="days-training" min="0" placeholder="0" class="dynamic-input w-full px-1 bg-kvk-gray-700 border-kvk-gray-700 rounded-md text-gray-200 text-sm">
                                 </div>
                                 <div class="hidden" id="hours-container-training">
-                                    <label class="block text-[10px] uppercase text-gray-500 mb-1">Hours</label>
-                                    <input type="number" id="hours-training" min="0" max="23" placeholder="0" class="dynamic-input w-full bg-kvk-gray-700 border-kvk-gray-700 rounded-md text-gray-200 text-sm">
+                                    <label class="block text-[10px] uppercase text-gray-500 mb-1">{{ _('Hours') }}</label>
+                                    <input type="number" id="hours-training" min="0" max="23" placeholder="0" class="dynamic-input w-full px-1 bg-kvk-gray-700 border-kvk-gray-700 rounded-md text-gray-200 text-sm">
                                 </div>
                                 <div id="minutes-container-training">
-                                    <label class="block text-[10px] uppercase text-gray-500 mb-1">Minutes</label>
+                                    <label class="block text-[10px] uppercase text-gray-500 mb-1">{{ _('Minutes') }}</label>
                                     <input type="number" id="mins-training" min="0" placeholder="0" class="dynamic-input w-full px-1 bg-kvk-gray-700 border-kvk-gray-700 rounded-md text-gray-200 text-sm">
                                 </div>
                             </div>
@@ -339,11 +355,12 @@
                         <div id="slot-grid-training" class="grid grid-cols-7 gap-1 mb-4" data-day="training">
                             {% for i in range(slot_labels|length) %}
                                 {% set count = slot_density.get('training', [])[i] if slot_density and 'training' in slot_density and i < slot_density['training']|length else 0 %}
-                                {% set contention = 'low' if count <= 10 else ('medium' if count <= 20 else 'high') %}
-                                <div class="slot slot-traffic-{{ contention }}" data-index="{{ i }}" data-count="{{ count }}" data-contention="{{ contention }}" data-utc-label="{{ slot_labels[i] }}" title="{{ slot_labels[i] }} UTC ({{ count }} applicant{% if count != 1 %}s{% endif %} - {{ contention|capitalize }} demand)">
+                                {% set contention = 'low' if count <= low_max else ('medium' if count <= medium_max else 'high') %}
+                                {% set demand_text = _('Applicants: %(count)s', count=count) ~ ' · ' ~ _('Demand: %(level)s', level=demand_names[contention]) %}
+                                <div class="slot slot-traffic-{{ contention }}" data-index="{{ i }}" data-count="{{ count }}" data-contention="{{ contention }}" data-utc-label="{{ slot_labels[i] }}" title="{{ slot_labels[i] }} UTC · {{ demand_text }}">
                                     <div class="slot-content">
                                         <span class="slot-time-text">{{ slot_labels[i] }}</span>
-                                        <span class="contention-indicator dot-{{ contention }}" title="{{ count }} applicant{% if count != 1 %}s{% endif %} ({{ contention|capitalize }})"></span>
+                                        <span class="contention-indicator dot-{{ contention }}" title="{{ demand_text }}"></span>
                                     </div>
                                 </div>
                             {% endfor %}
@@ -354,7 +371,7 @@
                 {% endfor %}
             </div>
 
-            <button type="submit" class="mt-6 w-full bg-kvk-gold text-kvk-gray-900 font-bold py-3 px-4 rounded-md hover:bg-amber-500 transition duration-300">Submit All Entries</button>
+            <button type="submit" class="mt-6 w-full bg-kvk-gold text-kvk-gray-900 font-bold py-3 px-4 rounded-md hover:bg-amber-500 transition duration-300">{{ _('Submit All Entries') }}</button>
         </form>
 
         <footer class="mt-12 pb-8 text-center border-t border-kvk-gray-700 pt-8">
@@ -367,6 +384,46 @@
     </div>
 
     <script>
+        // Translated strings for JavaScript (rendered by the server in the visitor's language)
+        const I18N = {
+            fetching: {{ _('Fetching...')|tojson }},
+            found: {{ _('Found!')|tojson }},
+            notFound: {{ _('Not found (manual entry enabled)')|tojson }},
+            lookupUnavailable: {{ _('Lookup unavailable (manual entry enabled)')|tojson }},
+            idNumeric: {{ _('Player ID must be numeric.')|tojson }},
+            nameRequired: {{ _('Please enter a valid Player Name.')|tojson }},
+            resourcesRequired: {{ _('Please enter resource data for at least one event day.')|tojson }},
+            slotsRequired: {{ _('You must select at least one time slot for: %(days)s', days='__DAYS__')|tojson }},
+            applicants: {{ _('Applicants: %(count)s', count='__COUNT__')|tojson }},
+            demandLabel: {{ _('Demand: %(level)s', level='__LEVEL__')|tojson }},
+            local: {{ _('Local')|tojson }},
+            demand: {
+                low: {{ _('Low')|tojson }},
+                medium: {{ _('Moderate')|tojson }},
+                high: {{ _('High')|tojson }}
+            },
+            dayNames: {
+                construction: {{ _('Construction')|tojson }},
+                training: {{ _('Training')|tojson }},
+                research: {{ _('Research')|tojson }}
+            }
+        };
+
+        function demandText(slot) {
+            const level = I18N.demand[slot.dataset.contention] || slot.dataset.contention;
+            return I18N.applicants.replace('__COUNT__', slot.dataset.count) + ' · ' +
+                   I18N.demandLabel.replace('__LEVEL__', level);
+        }
+
+        // Language switcher: remember the choice in a cookie, then reload in the new language
+        const langSelect = document.getElementById('lang-select');
+        if (langSelect) {
+            langSelect.addEventListener('change', function () {
+                document.cookie = 'lang=' + langSelect.value + '; path=/; max-age=31536000; SameSite=Lax';
+                window.location.reload();
+            });
+        }
+
         // Timezone Management
         let currentTzMode = localStorage.getItem('kvk_tz_mode') || 'utc';
         const detectedTz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
@@ -412,7 +469,7 @@
                 if (mode === 'utc') {
                     textEl.textContent = slot.dataset.utcLabel;
                     if (shiftEl) shiftEl.remove();
-                    slot.title = `${slot.dataset.utcLabel} UTC (${slot.dataset.count} applicants - ${slot.dataset.contention} demand)`;
+                    slot.title = `${slot.dataset.utcLabel} UTC · ${demandText(slot)}`;
                 } else {
                     const startMins = (totalSlots === 48) ? (index * 30) : ((index * 30) - 15);
                     const slotStartDate = new Date(Date.UTC(2026, 5, 15, 0, startMins, 0));
@@ -442,7 +499,7 @@
                     }
 
                     const dayTag = shiftText ? ` (${shiftText})` : '';
-                    slot.title = `${startStr}-${endStr}${dayTag} Local (${slot.dataset.count} applicants - ${slot.dataset.contention} demand)`;
+                    slot.title = `${startStr}-${endStr}${dayTag} ${I18N.local} · ${demandText(slot)}`;
                 }
             });
         }
@@ -598,7 +655,7 @@
 
                 if (fid === lastFetchedId) return;
 
-                statusSpan.innerText = 'Fetching...';
+                statusSpan.innerText = I18N.fetching;
                 statusSpan.className = 'ml-2 text-xs font-normal text-kvk-blue';
 
                 try {
@@ -633,17 +690,17 @@
                             if (avatarPlaceholder) avatarPlaceholder.classList.remove('hidden');
                         }
                         
-                        statusSpan.innerText = 'Found!';
+                        statusSpan.innerText = I18N.found;
                         statusSpan.className = 'ml-2 text-xs font-normal text-green-400';
                     } else {
-                        statusSpan.innerText = 'Not found (manual entry enabled)';
+                        statusSpan.innerText = I18N.notFound;
                         statusSpan.className = 'ml-2 text-xs font-normal text-amber-400';
                         avatarImg.classList.add('hidden');
                         if (avatarPlaceholder) avatarPlaceholder.classList.remove('hidden');
                     }
                 } catch (err) {
                     console.error('Player lookup error:', err);
-                    statusSpan.innerText = 'Lookup unavailable (manual entry enabled)';
+                    statusSpan.innerText = I18N.lookupUnavailable;
                     statusSpan.className = 'ml-2 text-xs font-normal text-amber-400';
                 }
             }
@@ -660,20 +717,20 @@
 
                 if (!/^\d+$/.test(player_id)) {
                     e.preventDefault();
-                    alert("Player ID must be numeric.");
+                    alert(I18N.idNumeric);
                     return;
                 }
 
                 if (!player_name) {
                     e.preventDefault();
-                    alert("Please enter a valid Player Name.");
+                    alert(I18N.nameRequired);
                     return;
                 }
 
                 const days = [
-                    { id: 'construction', name: 'Construction', speedups: 'speedups-construction', gold: 'truegold', gold2: 'tempered_truegold', slots: 'slots-input-construction' },
-                    { id: 'training', name: 'Training', speedups: 'speedups-training', slots: 'slots-input-training' },
-                    { id: 'research', name: 'Research', speedups: 'speedups-research', gold: 'truegold_dust', slots: 'slots-input-research' }
+                    { id: 'construction', name: I18N.dayNames.construction, speedups: 'speedups-construction', gold: 'truegold', gold2: 'tempered_truegold', slots: 'slots-input-construction' },
+                    { id: 'training', name: I18N.dayNames.training, speedups: 'speedups-training', slots: 'slots-input-training' },
+                    { id: 'research', name: I18N.dayNames.research, speedups: 'speedups-research', gold: 'truegold_dust', slots: 'slots-input-research' }
                 ];
 
                 let daysAttempted = 0;
@@ -699,13 +756,13 @@
 
                 if (daysAttempted === 0) {
                     e.preventDefault();
-                    alert("Please enter resource data for at least one event day.");
+                    alert(I18N.resourcesRequired);
                     return;
                 }
 
                 if (daysInvalid.length > 0) {
                     e.preventDefault();
-                    alert("You must select at least one time slot for: " + daysInvalid.join(", "));
+                    alert(I18N.slotsRequired.replace('__DAYS__', daysInvalid.join(", ")));
                     return;
                 }
             });
