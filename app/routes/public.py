@@ -32,6 +32,7 @@ from ..utils import parse_json_list, validate_safe_url
 public_bp = Blueprint("public", __name__)
 audit_logger = logging.getLogger("audit")
 
+from ..logic import get_day_numbers
 
 @public_bp.route("/")
 def index():
@@ -152,6 +153,7 @@ def player_form(event_uid):
 
     active_days_config = json.loads(event["active_days"])
     active_days = get_ordered_active_days(active_days_config)
+    day_numbers = get_day_numbers(event["active_days"])
     # Create a dictionary from the database row
     event_dict = {
         "uid": event["uid"],
@@ -179,6 +181,7 @@ def player_form(event_uid):
         event=event_dict,
         active_days=active_days,
         slot_density=slot_density,
+        day_numbers=day_numbers,
     )
 
 

@@ -213,7 +213,7 @@
                 {% for day in active_days %}
                     {% if day == 'construction' %}
                     <div class="p-4 rounded-lg bg-kvk-gray-900 border border-kvk-gray-700">
-                        <h3 class="font-bold text-xl mb-2 text-amber-400">Day 1: Construction</h3>
+                        <h3 class="font-bold text-xl mb-2 text-amber-400"><h3 class="font-bold text-xl mb-2 text-amber-400">Day {{ day_numbers.construction }}: Construction</h3></h3>
                         <p class="text-xs text-gray-400 mb-4 italic">Enter resources and select <strong>all feasible</strong> time slots. More slots give the system more flexibility to match you.</p>
                         <div class="space-y-4 mb-4">
                             <div>
@@ -264,7 +264,7 @@
                     </div>
                     {% elif day == 'research' %}
                     <div class="p-4 rounded-lg bg-kvk-gray-900 border border-kvk-gray-700">
-                        <h3 class="font-bold text-xl mb-2 text-blue-500">Day {{ event.active_days.research_day if event.active_days.research_day else '5' }}: Research</h3>
+                        <h3 class="font-bold text-xl mb-2 text-blue-500">Day {{ day_numbers.research }}: Research</h3>
                         <p class="text-xs text-gray-400 mb-4 italic">Enter resources and select <strong>all feasible</strong> time slots. More slots give the system more flexibility to match you.</p>
                          <div class="space-y-4 mb-4">
                             <div>
@@ -311,7 +311,7 @@
                     </div>
                     {% elif day == 'training' %}
                     <div class="p-4 rounded-lg bg-kvk-gray-900 border border-kvk-gray-700">
-                        <h3 class="font-bold text-xl mb-2 text-red-500">Day 4: Troop Training</h3>
+                        <h3 class="font-bold text-xl mb-2 text-red-500">Day {{ day_numbers.training }}: Troop Training</h3>
                         <p class="text-xs text-gray-400 mb-4 italic">Enter resources and select <strong>all feasible</strong> time slots. More slots give the system more flexibility to match you.</p>
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-gray-300 mb-2">Speedups</label>
